@@ -1,0 +1,47 @@
+---
+title: Vue Test View
+layout: ./app/layout.ejs
+engine: ejs
+current: View
+---
+
+<main class="py-20">
+  <div class="container">
+    <button type="button" class="AddCollection btn btn-primary">加入收藏</button>
+    <button type="button" class="cancelCollection btn btn-danger">取消收藏</button>
+    <!-- <button type="button" class="btn btn-outline-primary">未收藏</button> -->
+    <div class="view-detail"></div>
+  </div>
+</main>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+
+  let SelectedView = JSON.parse(localStorage.getItem("SelectedViews"));
+  let showArea = document.querySelector(".view-detail")
+  let strHTML = ""
+  SelectedView.forEach((item)=>{
+    console.log(item)
+    strHTML+=`
+    <div class="card">
+      <img src="${item.imgUrl}" class="card-img-top" alt="">
+      <div class="card-body">
+        ${item.title}
+        <hr/>  
+        <p class="card-text">
+        ${item.body}
+        
+        </p>
+      </div>
+    </div>
+    
+    
+    `
+  })
+  showArea.innerHTML = strHTML
+
+})
+</script>

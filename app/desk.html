@@ -1,0 +1,25 @@
+---
+title: 景點管理後台
+layout: ./app/admin.ejs
+engine: ejs
+current: desk
+---
+
+<main class="py-10">
+  <div class="container">
+    <h1 class="mb-5">
+      <a class="link-success" href="./create.html">新增景點 - GO </a>
+    </h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="5%" scope="col">#</th>
+          <th width="15%" scope="col">標題</th>
+          <th width="65%" scope="col">內文</th>
+          <th width="15%" scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="admin-desk-table"></tbody>
+    </table>
+  </div>
+</main>

@@ -1,0 +1,41 @@
+---
+title: Vue Test 後台
+layout: ./app/admin.ejs
+engine: ejs
+current: desk
+---
+
+<main class="py-10">
+  <div class="container">
+    <h1 class="mb-10">編輯</h1>
+    <form class="view-edit-form d-flex flex-column">
+      <label for="view-edit-title">標題</label>
+      <input
+        type="text"
+        name="view-edit-title"
+        id="view-edit-title"
+        placeholder="標題"
+        class="w-50 mb-10"
+      />
+      <label for="view-edit-content">景點內容</label>
+      <input
+        type="text"
+        name="view-edit-content"
+        id="view-edit-content"
+        placeholder="內文"
+        class="w-50 mb-10"
+      />
+      <label for="view-edit-img">景點圖片</label>
+      <input
+        type="text"
+        name="view-edit-img"
+        id="view-edit-img"
+        placeholder="圖片網址"
+        class="w-50 mb-10"
+      />
+      <button type="button" class="view-edit-btn w-25 btn btn-outline-success">
+        送出
+      </button>
+    </form>
+  </div>
+</main>

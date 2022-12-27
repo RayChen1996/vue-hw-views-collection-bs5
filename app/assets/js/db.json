@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$cUAYDpmUJSxr0uF6xZGLouUmYhjROD6ZkwuDUAr7BlWJ2kMeIz44C",
+      "id": 1
+    },
+    {
+      "email": "user@gmail.com",
+      "password": "$2a$10$Cnm/7sAjTGef5Go6gWuNYuhQT2KcsZd7hewJGPIR0r7IW9.5nz7zi",
+      "id": 2
+    },
+    {
+      "email": "admin@gmai.com",
+      "password": "$2a$10$o6FtkEdpK3ok/zYwUPBzseXSV7p/Y5TPHo9qsNaJdD.igIqkmxx4.",
+      "id": 3
+    }
+  ],
+  "bookmarks":[
+    {
+        "viewId": 1,
+        "userId": 1,
+        "id": 1
+    },
+    {
+        "viewId": 1,
+        "userId": 4,
+        "id": 2
+    },
+    {
+        "viewId": 3,
+        "userId": 4,
+        "id": 4
+    }
+  ],
+  "views": [
+    {
+      "id": 1,
+      "title": "大峽谷國家公園",
+      "body": "大峽谷國家公園（英語：Grand Canyon National Park）是美國西南部的國家公園，在1979年被列為世界自然遺產，以深達1500公尺，由科羅拉多河耗費萬年所切割出來的科羅拉多大峽谷景觀聞名於世。位於美國亞利桑那州的西北角。整個大峽谷走向為東西向，總長有454公里，寬度從最窄的6公里到25公里。將大峽谷分為南緣跟北緣。整個國家公園總面積為1,217,403畝。在地形上是高原地形，該地的高原稱為凱巴布高原（Kaibab）。",
+      "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Dawn_on_the_S_rim_of_the_Grand_Canyon_%288645178272%29.jpg/350px-Dawn_on_the_S_rim_of_the_Grand_Canyon_%288645178272%29.jpg"
+    },
+    {
+      "id": 2,
+      "title": "雪霸國家公園",
+      "body": "雪霸國家公園是臺灣第五座國家公園，可溯至日治時期成立之次高太魯閣國立公園，1991年3月1日公告計畫、1992年7月1日成立管理處，以雪山和大霸尖山的「雪」、「霸」兩字命名，這兩座山也是該公園主要的保護目標。其涵蓋範圍從北邊的樂山到邊吉岩山之稜線為界，到南邊的宇羅尾山和大甲溪中游，總面積共有76,850公頃，橫跨新竹縣、苗栗縣、臺中市等3縣市。公園內高山林立，峻秀壯觀，並有稀有的台灣寬尾鳳蝶，及瀕臨絕種的櫻花鉤吻鮭，是臺灣登山路線最多、最複雜的國家公園。",
+      "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mt_Dabajian-winter_view.jpg/300px-Mt_Dabajian-winter_view.jpg"
+    },
+    {
+      "id": 3,
+      "title": "陽明山國家公園",
+      "body": "陽明山國家公園是中華民國設置的第三個國家公園，由內政部營建署管轄，前身為臺灣日治時期成立之大屯國立公園（1937-1945）。位於臺北都會區近郊，行政區域 包括臺北市北投區、士林區，新北市的萬里區、金山區、石門區、三芝區、淡水區一帶；地理上則屬於大屯火山彙區域，1985年9月1日公告計畫，1985年9月16日成立管理處，轄內面積經過三次通盤檢討，至2013年為11,338公頃[2]。",
+      "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/YangmingshanNP_MenHuanChao_001.jpg/300px-YangmingshanNP_MenHuanChao_001.jpg"
+    }
+  ],
+  "viewCollects": [
+    {
+      "id": 1,
+      "userId": 2,
+      "viewId": 1
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "viewId": 3
+    }
+  ]
+}

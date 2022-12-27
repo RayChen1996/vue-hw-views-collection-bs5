@@ -1,0 +1,87 @@
+---
+title: 景點收藏
+layout: ./app/layout.ejs
+engine: ejs
+current: index
+---
+
+<h2>景點收藏</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <div class="ViewCollection">
+
+            </div>
+        </div>
+        <div class="col">
+            
+        </div>
+    </div>
+</div>
+<script src="./assets/js/all.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+function cancelViewId(ViewId){
+
+    
+}
+document.addEventListener("DOMContentLoaded", function(){
+    let Views = JSON.parse(localStorage.getItem("Views")) ;
+    // Views.forEach((item)=>{
+    //     return 
+    // })
+    axios.get(`${BaseUrl}/bookmarks`, { 
+          
+        })
+        .then((res) => { 
+            console.table(res.data)
+            let CollectList =  res.data
+            let StrHTML =""
+ 
+            const viewsElem = document.querySelector(".ViewCollection")
+            let collectIdxs = []
+            CollectList.forEach((item2)=>{
+                collectIdxs.push(item2.id)
+            })
+            let filter = Views.filter((item)=>{
+                for(var i in collectIdxs){
+                    return collectIdxs[i] == item.id
+                }                
+            })
+
+ 
+            console.log(filter)
+            filter.forEach((item,idx)=>{
+
+                StrHTML += `
+                
+                    <div class="col-sm-4 mt-3">
+                        <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src='${item.imgUrl}'>
+                        <div class="card-block">
+                            <h4 class="card-title">${item.title}</h4>
+                            <p class="card-text">
+                            <Button     onclick='cancelViewId(${item.id})' link-success card-link stretched-link mt-auto ms-auto" data-viewid=${item.id}>取消收藏</Button>
+                            </p>
+                        </div>
+                        </div>
+                    </div>
+                `            
+            })
+  
+  
+            viewsElem.innerHTML = StrHTML
+        })
+        .catch((error) => { 
+            console.error(error) 
+        })
+        .finally(() => { 
+          
+        })
+
+
+})
+</script>
