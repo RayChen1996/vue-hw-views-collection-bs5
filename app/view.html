@@ -59,7 +59,12 @@ document.addEventListener("DOMContentLoaded", function(){
       .then((res) => {
         console.log(res.data);
 
-
+        Swal.fire({
+          icon: "success",
+          title: "已加入收藏！",
+          showConfirmButton: false,
+          timer: 1000,
+        });
 
 
       })
@@ -85,6 +90,29 @@ document.addEventListener("DOMContentLoaded", function(){
       return
     }
 
+
+
+      const data = {
+        viewId:id,
+        userId: parseInt(localStorage.getItem("userId"),10),
+      };
+      axios
+        .delete(`${BaseUrl}/bookmarks`, data)
+        .then((res) => {
+          console.log(res.data);
+
+          Swal.fire({
+            icon: "success",
+            title: "已移除收藏！",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
     
 
