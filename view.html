@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>景點管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="./assets/style/all.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">LOGO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="Views.html">景點首頁</a>
+              
+            </li>
+          
+            <li class="nav-item">
+               <a class="bookmark nav-link active" aria-current="page" href="ViewsCollection.html">景點收藏</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <!-- <span>Hello <div id="User"></div> ！</span> -->
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+            <button class="btn btn-success" id="login" type="button">登入</button>
+            <button class="btn btn-outline-success" id="logout" type="button">登出</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    
+<main class="py-20">
+  <div class="container">
+    <button type="button" class="AddCollection btn btn-primary">加入收藏</button>
+    <button type="button" class="cancelCollection btn btn-danger">取消收藏</button>
+    <!-- <button type="button" class="btn btn-outline-primary">未收藏</button> -->
+    <div class="view-detail"></div>
+  </div>
+</main>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+  const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+  const role = localStorage.getItem("role");
+  if(role=="admin"){
+    $("#AddCollection").hide()
+    $("#cancelCollection").hide()
+  }
+  const AddColliection = document.querySelector(".AddCollection");
+  const cancelColliection = document.querySelector(".cancelCollection");
+  AddColliection.addEventListener('click',function(){
+    // bookMarkAdded();
+    if(!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "請先登入！",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+
+      setTimeout(() => {
+        window.location.href = "./login.html";
+      }, 1500);
+      return
+    }
+ 
+
+    let SelectedView = JSON.parse(localStorage.getItem("SelectedViews")) ;
+
+    let id = 0 
+    SelectedView.forEach((item)=>{
+      id = item.id
+    })
+    const data = {
+      viewId:id,
+      userId: parseInt(localStorage.getItem("userId"),10),
+    };
+    axios
+      .post(`${BaseUrl}/bookmarks`, data)
+      .then((res) => {
+        console.log(res.data);
+
+
+
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
+  })
+
+  cancelColliection.addEventListener('click',function(){
+    if(!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "請先登入！",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+
+      setTimeout(() => {
+        window.location.href = "./login.html";
+      }, 1500);
+      return
+    }
+
+
+    
+
+
+  })
+  let SelectedView = JSON.parse(localStorage.getItem("SelectedViews"));
+  let showArea = document.querySelector(".view-detail")
+  let strHTML = ""
+  SelectedView.forEach((item)=>{
+    console.log(item)
+    strHTML+=`
+    <div class="card">
+      <img src="${item.imgUrl}" class="card-img-top" alt="">
+      <div class="card-body">
+        ${item.title}
+        <hr/>  
+        <p class="card-text">
+        ${item.body}
+        
+        </p>
+      </div>
+    </div>
+    
+    
+    `
+  })
+  showArea.innerHTML = strHTML
+
+})
+</script>
+
+    <footer class="footer">
+      
+    </footer>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="./assets/js/vendors.js"></script>
+    <script src="./assets/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js" integrity="sha512-zJYu9ICC+mWF3+dJ4QC34N9RA0OVS1XtPbnf6oXlvGrLGNB8egsEzu/5wgG90I61hOOKvcywoLzwNmPqGAdATA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </body>
+
+</html>
+
+
+<script>
+  $(function(){
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const role = localStorage.getItem("role");
+
+    if (token) {
+      $("#login").hide()
+      if(role=="admin"){
+        $(".bookmark ").hide()
+      }else{
+        //user
+      }
+
+
+    }else{
+      $(".bookmark ").hide()
+      $("#logout").hide()
+      //
+    }
+
+   
+
+    $("#login").on("click",function(){
+      window.location.href = "login.html"
+    })
+    $("#logout").on("click",function(e) {
+  
+      e.preventDefault();
+
+      localStorage.clear();
+
+      Swal.fire({
+        icon: "success",
+        title: "已登出",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+
+      setTimeout(() => {
+        window.location.href = "./Views.html";
+      }, 1500);
+
+
+
+    })
+  })
+
+  // setTimeout(() => {
+  //       window.location.href = "./Views.html";
+  //   }, 1500);
+</script>

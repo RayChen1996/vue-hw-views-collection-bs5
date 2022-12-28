@@ -1,10 +1,23 @@
----
-title: Vue Test 後台
-layout: ./app/admin.ejs
-engine: ejs
-current: desk
----
+<!DOCTYPE html>
+<html lang="en">
 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Test 後台</title>
+    <link rel="stylesheet" href="./assets/style/all.css">
+  </head>
+
+  <body>
+    <nav class="navbar    ">
+      <div class="container">
+          <a   href="./desk.html">景點管理後台</a>
+          <a   href="./index.html">返回前台</a>
+      </div>
+    </nav>
+
+    
 <main class="py-10">
   <div class="container">
     <h1 class="mb-10">新增景點</h1>
@@ -105,3 +118,12 @@ current: desk
 
 
 </script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./assets/js/vendors.js"></script>
+    <script src="./assets/js/all.js"></script>
+ 
+  </body>
+
+</html>
