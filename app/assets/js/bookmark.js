@@ -1,5 +1,5 @@
-// const Url = "http://localhost:3000";
-const Url = "https://vue-test-render.onrender.com";
+
+const BaseUrl = `https://vuejs-travel-app.onrender.com`
 
 const bookmarkAddBtn = document.querySelector(".bookmark-add-btn");
 const bookmarkRemoveBtn = document.querySelector(".bookmark-remove-btn");
@@ -79,11 +79,11 @@ function renderViewDetail(arr) {
 
 function getViewDetailData() {
   axios
-    .get(`${Url}/views`)
+    .get(`${BaseUrl}/Views`)
     .then((res) => {
       const { data } = res;
       renderViewDetail(data);
-      return axios.get(`${Url}/user/${userId}/bookmarks?_expand=view`);
+      return axios.get(`${BaseUrl}/user/${userId}/bookmarks?_expand=view`);
     })
     .then((res) => {
       const { data } = res;
@@ -113,7 +113,7 @@ if (bookmarkAddBtn) {
     };
 
     axios
-      .post(`${Url}/bookmarks`, data)
+      .post(`${BaseUrl}/bookmarks`, data)
       .then((res) => {
         console.log(res.data);
       })
@@ -125,7 +125,7 @@ if (bookmarkAddBtn) {
 
 function removeBookmark() {
   axios
-    .get(`${Url}/user/${userId}/bookmarks`)
+    .get(`${BaseUrl}/user/${userId}/bookmarks`)
     .then((res) => {
       console.log(res.data);
       const { data } = res;
@@ -136,7 +136,7 @@ function removeBookmark() {
         }
       });
 
-      return axios.delete(`${Url}/bookmarks/${thisId}`);
+      return axios.delete(`${BaseUrl}/bookmarks/${thisId}`);
     })
     .then((res) => {
       console.log(res.data);
@@ -166,7 +166,7 @@ function removeListBookmark() {
         const id = e.target.dataset.id;
         console.log(id);
         axios
-          .delete(`${Url}/bookmarks/${id}`)
+          .delete(`${BaseUrl}/bookmarks/${id}`)
           .then((res) => {
             console.log(res.data);
             viewDetailInit();

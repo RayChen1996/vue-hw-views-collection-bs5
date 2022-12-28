@@ -1,6 +1,4 @@
-// const Url = "http://localhost:3000";
-const Url = "https://vue-test-render.onrender.com";
-
+const BaseUrl = `https://vuejs-travel-app.onrender.com`
 const adminDeskTable = document.querySelector(".admin-desk-table");
 
 function renderDeskTable(arr) {
@@ -11,7 +9,7 @@ function renderDeskTable(arr) {
     <tr>
       <th scope="row">${item.id}</th>
       <td>${item.title}</td>
-      <td>${item.content}</td>
+      <td>${item.body}</td>
       <td>
         <a href="#" class="admin-view-remove-btn btn btn-outline-danger me-2" data-id=${item.id}>刪除</a>
         <a href="./edit.html" class="admin-view-edit-btn btn btn-outline-warning" data-id=${item.id}>編輯</a>
@@ -39,9 +37,7 @@ function saveEditId() {
 }
 
 function deleteViews() {
-  const adminViewRemoveBtn = document.querySelectorAll(
-    ".admin-view-remove-btn"
-  );
+  const adminViewRemoveBtn = document.querySelectorAll(".admin-view-remove-btn");
 
   if (adminViewRemoveBtn) {
     adminViewRemoveBtn.forEach((item) => {
@@ -49,17 +45,18 @@ function deleteViews() {
         const id = e.target.dataset.id;
 
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "確定要刪除?",
+          text: "即將刪除!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "取消",
+          confirmButtonText: "確定",
         }).then((result) => {
           if (result.isConfirmed) {
             axios
-              .delete(`${Url}/views/${id}`)
+              .delete(`${BaseUrl}/Views/${id}`)
               .then(() => {
                 localStorage.removeItem("adminViewID");
 
@@ -78,8 +75,9 @@ function deleteViews() {
 }
 
 function getAdminViewsData() {
+ 
   axios
-    .get(`${Url}/views`)
+    .get(`${BaseUrl}/Views`)
     .then((res) => {
       const { data } = res;
       renderDeskTable(data);

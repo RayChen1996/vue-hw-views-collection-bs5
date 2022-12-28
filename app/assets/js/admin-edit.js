@@ -1,4 +1,4 @@
-const Url = "https://vue-test-render.onrender.com";
+const BaseUrl = `https://vuejs-travel-app.onrender.com`
 
 const viewEditTitle = document.querySelector("#view-edit-title");
 const viewEditContent = document.querySelector("#view-edit-content");
@@ -10,7 +10,7 @@ const id = localStorage.getItem("adminViewID");
 function renderAdminEditData(data) {
   if (viewEditTitle) {
     viewEditTitle.value = data.title;
-    viewEditContent.value = data.content;
+    viewEditContent.value = data.body;
     viewEditImg.value = data.imgUrl;
   }
 }
@@ -18,15 +18,13 @@ function renderAdminEditData(data) {
 function updateView() {
   const data = {
     title: viewEditTitle.value,
-    content: viewEditContent.value,
+    body: viewEditContent.value,
     imgUrl: viewEditImg.value,
   };
 
-  if (
-    viewEditTitle.value === "" ||
-    viewEditContent.value === "" ||
-    viewEditImg.value === ""
-  ) {
+  if ( viewEditTitle.value === "" ||
+       viewEditContent.value === "" ||
+       viewEditImg.value === "" ) {
     Swal.fire({
       icon: "warning",
       title: "有空欄位未填",
@@ -37,7 +35,7 @@ function updateView() {
   }
 
   axios
-    .put(`${Url}/views/${id}`, data)
+    .put(`${BaseUrl}/Views/${id}`, data)
     .then((res) => {
       Swal.fire({
         icon: "success",
@@ -67,7 +65,7 @@ function editView() {
 
 function getAdminEditData() {
   axios
-    .get(`${Url}/views/${id}`)
+    .get(`${BaseUrl}/Views/${id}`)
     .then((res) => {
       const { data } = res;
       renderAdminEditData(data);

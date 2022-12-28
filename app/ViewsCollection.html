@@ -25,9 +25,36 @@ current: index
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 function cancelViewId(ViewId){
-
+    removeBookmark() 
     
 }
+
+
+function removeBookmark() {
+let UserId = localStorage.getItem("userId");
+  axios
+    .get(`${BaseUrl}/user/${UserId}/bookmarks`)
+    .then((res) => {
+      console.log(res.data);
+      const { data } = res;
+      let thisId = 0;
+      data.forEach((item) => {
+        if (item.viewId === viewId) {
+          thisId = item.id;
+        }
+      });
+
+      return axios.delete(`${Url}/bookmarks/${thisId}`);
+    })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+
 document.addEventListener("DOMContentLoaded", function(){
     let Views = JSON.parse(localStorage.getItem("Views")) ;
     // Views.forEach((item)=>{

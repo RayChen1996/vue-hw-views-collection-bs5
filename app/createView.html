@@ -1,0 +1,107 @@
+---
+title: Vue Test 後台
+layout: ./app/admin.ejs
+engine: ejs
+current: desk
+---
+
+<main class="py-10">
+  <div class="container">
+    <h1 class="mb-10">新增景點</h1>
+    <form class="view-create-form d-flex flex-column">
+ 
+  
+      <div class="input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">標題</span>
+        <input type="text" class="form-control"       name="view-create-title"        id="view-create-title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+      </div>
+      
+      <div class="input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">景點內容</span>
+        <input type="text" class="form-control"           id="view-create-content"     name="view-create-content"   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+      </div>
+
+      <div class="input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">景點圖片</span>
+        <input type="text" class="form-control"   id="view-create-img" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+      </div>
+
+
+      <br>
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+
+          </div>
+          <div class="col">
+            <button type="button" class="view-create-btn btn btn-primary">送出</button>
+            <button type="button" class="view-demo-btn btn btn-outline-primary">Demo</button>
+          </div>
+          <div class="col">
+            
+          </div>
+        </div>        
+      </div>
+
+
+      
+     
+    </form>
+  </div>
+</main>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+
+    const demoData = document.querySelector(".view-demo-btn");
+
+    const CaptionInputText = document.querySelector("#view-create-title");
+    const ContextInputText = document.querySelector("#view-create-content");
+    const ImgUrlInputText = document.querySelector("#view-create-img");
+    demoData.addEventListener("click",(e)=>{
+      CaptionInputText.value = "台中 審計新村"
+      ContextInputText.value = "活絡閒置公有建物，提供產業發展需求之空間，並帶動地方整體發展，臺中市政府以委託經營方式合作開發，另公開招商募集民間、法人團體投資開發。本基地以引入複合式主題文化創意產業為主，本區之區位之交通優勢，及臨近臺中相關之藝術、人文及新興商業活動區都在步行可達之範圍，可串連既有的綠園道及美術館文創商店以形成產業群聚效應，型塑臺中市園道文創產業廊道，並以生活、生產、生態三生共構的基礎，輔導青年族群進行微型創業，增加就業機會。"
+      ImgUrlInputText.value = "https://travel.taichung.gov.tw/image/24408?r=637837893165827270"
+    })
+
+    const AddViews = document.querySelector(".view-create-btn")
+
+    AddViews.addEventListener("click",(e)=>{
+      const data = {
+        title: CaptionInputText.value ,
+        body: ContextInputText.value,
+        imgUrl: ImgUrlInputText.value,
+      };
+      axios
+      .post(`${BaseUrl}/Views`, data)
+      .then((res) => {
+        console.log(res.data);
+
+        Swal.fire({
+          icon: "success",
+          title: "新增成功",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+
+        CaptionInputText.value = "";
+        ContextInputText.value = "";
+        ImgUrlInputText.value = "";
+
+        setTimeout(() => {
+          window.location.href = "./desk.html";
+        }, 2000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    })
+
+
+  })
+
+
+</script>

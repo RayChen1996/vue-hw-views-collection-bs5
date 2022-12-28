@@ -56,8 +56,51 @@
 
 <script>
   $(function(){
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const role = localStorage.getItem("role");
+
+    if (token) {
+      $("#login").hide()
+      if(role=="admin"){
+        $(".bookmark ").hide()
+      }else{
+        //user
+      }
+
+
+    }else{
+      $(".bookmark ").hide()
+      $("#logout").hide()
+      //
+    }
+
+   
+
     $("#login").on("click",function(){
       window.location.href = "login.html"
+    })
+    $("#logout").on("click",function(e) {
+   
+
+
+      e.preventDefault();
+
+      localStorage.clear();
+
+      Swal.fire({
+        icon: "success",
+        title: "已登出",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+
+      setTimeout(() => {
+        window.location.href = "./Views.html";
+      }, 1500);
+
+
+
     })
   })
 </script>
