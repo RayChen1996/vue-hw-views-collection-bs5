@@ -6,19 +6,9 @@ current: index
 ---
 
 <h2>景點收藏</h2>
-<div class="container">
+<div class="container text-center ViewCollection">
     <div class="row">
-        <div class="col">
 
-        </div>
-        <div class="col">
-            <div class="ViewCollection">
-
-            </div>
-        </div>
-        <div class="col">
-            
-        </div>
     </div>
 </div>
 <script src="./assets/js/all.js"></script>
@@ -44,7 +34,7 @@ let UserId = localStorage.getItem("userId");
         }
       });
 
-      return axios.delete(`${Url}/bookmarks/${thisId}`);
+      return axios.delete(`${BaseUrl}/bookmarks/${thisId}`);
     })
     .then((res) => {
       console.log(res.data);
@@ -56,44 +46,77 @@ let UserId = localStorage.getItem("userId");
 
 
 document.addEventListener("DOMContentLoaded", function(){
-    let Views = JSON.parse(localStorage.getItem("Views")) ;
-    // Views.forEach((item)=>{
-    //     return 
-    // })
+    
+    
+
+
     axios.get(`${BaseUrl}/bookmarks`, { 
           
         })
         .then((res) => { 
-            console.table(res.data)
+   
             let CollectList =  res.data
-            let StrHTML =""
+            let StrHTML = ""
  
-            const viewsElem = document.querySelector(".ViewCollection")
+            const viewsElem = document.querySelector(".ViewCollection .row")
             let collectIdxs = []
-            CollectList.forEach((item2)=>{
-                collectIdxs.push(item2.id)
+  
+            let Views = JSON.parse(localStorage.getItem("Views")) ;
+            let userId = localStorage.getItem("userId") ;
+            console.log(CollectList)
+            let filter = CollectList.filter((item)=>{
+                return item.userId == userId
             })
-            let filter = Views.filter((item)=>{
+
+            const result = filter.filter((thing, index, self) =>
+                index === self.findIndex((t) => (
+                    t.viewId === thing.viewId && t.userId === thing.userId
+                ))
+            )
+            
+
+            result.forEach((item)=>{
+                collectIdxs.push(item.viewId)
+            })
+            console.log(collectIdxs)
+            console.log(Views)
+            var tmp = []
+            let RenderList = Views.filter((item)=>{
+                
                 for(var i in collectIdxs){
-                    return collectIdxs[i] == item.id
+                    if(item.id==collectIdxs[i]){
+                        tmp.push(item)
+                    }
+                    console.log(item.id)
+                    console.log(collectIdxs[i])
+                //     return collectIdxs[i] == item.id
                 }                
             })
 
+            console.log(tmp)
  
-            console.log(filter)
-            filter.forEach((item,idx)=>{
-
+            console.log(RenderList)
+            tmp.forEach((item,idx)=>{
+              // <div class="col-sm-4 mt-3">
+                    //     <div class="card" style="width: 20rem;">
+                    //     <img class="card-img-top" src='${item.imgUrl}'>
+                    //     <div class="card-block">
+                    //         <h4 class="card-title">${item.title}</h4>
+                    //         <p class="card-text">
+                    //         <Button     onclick='cancelViewId(${item.id})' link-success card-link stretched-link mt-auto ms-auto" data-viewid=${item.id}>取消收藏</Button>
+                    //         </p>
+                    //     </div>
+                    //     </div>
+                    // </div>
                 StrHTML += `
-                
-                    <div class="col-sm-4 mt-3">
-                        <div class="card" style="width: 20rem;">
-                        <img class="card-img-top" src='${item.imgUrl}'>
-                        <div class="card-block">
-                            <h4 class="card-title">${item.title}</h4>
-                            <p class="card-text">
-                            <Button     onclick='cancelViewId(${item.id})' link-success card-link stretched-link mt-auto ms-auto" data-viewid=${item.id}>取消收藏</Button>
-                            </p>
-                        </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src='${item.imgUrl}' alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.title}</h5>
+                                <p class="card-text"></p>
+                                <a href="#"  onclick='cancelViewId(${item.id})' data-viewid=${item.id} class="btn btn-danger">取消收藏</a>
+                            </div>
                         </div>
                     </div>
                 `            
